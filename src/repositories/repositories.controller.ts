@@ -1,5 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { RepositoriesUseCase } from './repositories.usecase';
+import { GetRepositoriesQueryDto } from './repositories.dto';
 
 @Controller('repositories')
 export class RepositoriesController {
@@ -7,7 +8,7 @@ export class RepositoriesController {
     }
 
     @Get()
-    getRepositories() {
-        return this.useCase.execute();
+    getRepositories(@Query() query: GetRepositoriesQueryDto) {
+        return this.useCase.execute(query);
     }
 }
