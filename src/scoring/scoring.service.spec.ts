@@ -12,7 +12,11 @@ describe('ScoringService', () => {
     service = module.get<ScoringService>(ScoringService);
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
+it('should calculate higher score for more stars', () => {
+  const repoA = { stars: 100, forks: 10, updatedAt: new Date().toISOString() };
+  const repoB = { stars: 10, forks: 10, updatedAt: new Date().toISOString() };
+
+  expect(service.calculateScore(repoA))
+    .toBeGreaterThan(service.calculateScore(repoB));
+});
 });

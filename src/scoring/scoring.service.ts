@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { CalculateScoreInputDTO } from './scoring.dto';
 
 @Injectable()
 export class ScoringService {
@@ -9,11 +10,9 @@ export class ScoringService {
     private readonly recencyWeight = 0.1;
 
     // Those input variables (stars, forks, etc) could be added to a DTO, so it would be easier to read. But let's focus on simplicity here
-    calculateScore(
-        stars: number,
-        forks: number,
-        updatedAt: string,
+    calculateScore(repo: CalculateScoreInputDTO
     ): number {
+        const {updatedAt, stars, forks} = repo
         const recencyScore = this.calculateRecencyScore(updatedAt);
 
         const score =
