@@ -1,3 +1,94 @@
+# GitHub Repository Scoring API
+
+## Overview
+
+This project is a backend application built with NestJS that fetches repositories from GitHub and assigns a popularity score based on stars, forks, and recency
+
+---
+
+## Features
+
+- Fetch repositories from GitHub based on:
+  - Programming language
+  - Creation date
+- Pagination support
+- Popularity score calculation
+- Clean architecture with separation of concerns
+- Docker support
+
+---
+
+## API Endpoint
+
+### GET /api/repositories
+
+#### Query Parameters
+
+| Param          | Type   | Required | Description                     |
+|----------------|--------|----------|---------------------------------|
+| language       | string | yes      | Programming language             |
+| createdAfter   | string | yes      | ISO date (e.g. 2023-01-01)       |
+| page           | number | no       | Page number (default: 1)         |
+| limit          | number | no       | Items per page (default: 10)     |
+
+#### Example
+GET /api/repositories?language=typescript&createdAfter=2023-01-01&page=1&limit=10
+---
+
+## Scoring Algorithm
+
+The score is calculated using:
+
+- Stars (60%)
+- Forks (30%)
+- Recency (10%)
+
+Recency is calculated as:
+1 / (1 + days_since_last_update)
+
+---
+
+## How to Run
+
+### Locally
+
+```bash
+npm install
+npm run start:dev
+```
+---
+## Using Docker
+```bash
+docker build -t github-scoring .
+docker run -p 3000:3000 github-scoring
+```
+---
+## Using Mau
+This project can also be deployed using Mau, as referenced in the NestJS documentation:
+https://docs.nestjs.com/deployment
+and 
+https://www.mau.nestjs.com/
+
+Maum provides a simple way to deploy containerized NestJS applications.
+---
+# Design Decisions
+Used NestJS for modular and scalable architecture
+Separated concerns into:
+GitHub integration
+Scoring logic
+Application use case
+Implemented pagination aligned with GitHub API
+Focused on simplicity and clarity due to time constraints
+--- 
+# Possible Improvements
+Add caching layer (e.g. Redis) to reduce GitHub API calls
+Add authentication if needed
+Improve observability (logging, metrics)
+Add more comprehensive test coverage
+--- 
+
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>

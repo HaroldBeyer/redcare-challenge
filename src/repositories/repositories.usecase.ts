@@ -15,17 +15,18 @@ export class RepositoriesUseCase {
 
   async execute(query: GetRepositoriesQueryDto) {
     const { page, limit } = query;
+
     const repos: MappedGithubOutput[] =
       await this.githubService.searchRepositories(query);
 
     const scored: MappedGithubOutputWithScore[] = repos.map(this.addScore);
+
     const sorted = scored.sort((a, b) => b.score - a.score);
-    const paginated = this.paginate(sorted, page, limit);
 
     return {
       page,
       limit,
-      data: paginated,
+      data: sorted,
     };
   }
 
@@ -33,15 +34,4 @@ export class RepositoriesUseCase {
     ...repo,
     score: this.scoringService.calculateScore(repo),
   });
-
-  private paginate(
-    items: MappedGithubOutputWithScore[],
-    page: number,
-    limit: number,
-  ): MappedGithubOutputWithScore[] {
-    const start = (page - 1) * limit;
-    const end = start + limit;
-
-    return items.slice(start, end);
-  }
 }
