@@ -1,5 +1,5 @@
 export interface CalculateScoreInputDTO {
-    stars: number;
-    forks: number;
-    updatedAt: string;
+  stars: number;
+  forks: number;
+  updatedAt: string;
 }

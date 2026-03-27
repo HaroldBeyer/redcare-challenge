@@ -12,11 +12,16 @@ describe('ScoringService', () => {
     service = module.get<ScoringService>(ScoringService);
   });
 
-it('should calculate higher score for more stars', () => {
-  const repoA = { stars: 100, forks: 10, updatedAt: new Date().toISOString() };
-  const repoB = { stars: 10, forks: 10, updatedAt: new Date().toISOString() };
+  it('should calculate higher score for more stars', () => {
+    const repoA = {
+      stars: 100,
+      forks: 10,
+      updatedAt: new Date().toISOString(),
+    };
+    const repoB = { stars: 10, forks: 10, updatedAt: new Date().toISOString() };
 
-  expect(service.calculateScore(repoA))
-    .toBeGreaterThan(service.calculateScore(repoB));
-});
+    expect(service.calculateScore(repoA)).toBeGreaterThan(
+      service.calculateScore(repoB),
+    );
+  });
 });

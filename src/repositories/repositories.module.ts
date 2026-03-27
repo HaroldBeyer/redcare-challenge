@@ -10,6 +10,6 @@ import { ScoringModule } from 'src/scoring/scoring.module';
 @Module({
   imports: [HttpModule, GithubModule, ScoringModule],
   controllers: [RepositoriesController],
-  providers: [RepositoriesUseCase, ScoringService, GithubService]
+  providers: [RepositoriesUseCase, ScoringService, GithubService],
 })
 export class RepositoriesModule {}

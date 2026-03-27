@@ -4,11 +4,10 @@ import { GetRepositoriesQueryDto } from './repositories.dto';
 
 @Controller('repositories')
 export class RepositoriesController {
-    constructor(private readonly useCase: RepositoriesUseCase) {   
-    }
+  constructor(private readonly useCase: RepositoriesUseCase) {}
 
-    @Get()
-    getRepositories(@Query() query: GetRepositoriesQueryDto) {
-        return this.useCase.execute(query);
-    }
+  @Get()
+  getRepositories(@Query() query: GetRepositoriesQueryDto) {
+    return this.useCase.execute(query);
+  }
 }

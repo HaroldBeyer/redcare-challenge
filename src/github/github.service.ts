@@ -1,7 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
-import { GithubRepository, GithubSearchResponse, MappedGithubResponse } from './github.types';
+import {
+  GithubRepository,
+  GithubSearchResponse,
+  MappedGithubResponse,
+} from './github.types';
 
 @Injectable()
 export class GithubService {

@@ -6,7 +6,6 @@ import { MappedGithubResponse } from 'src/github/github.types';
 
 type MappedGithubResponseWithScore = MappedGithubResponse & { score: number };
 
-
 @Injectable()
 export class RepositoriesUseCase {
   constructor(
@@ -35,7 +34,11 @@ export class RepositoriesUseCase {
     score: this.scoringService.calculateScore(repo),
   });
 
-  private paginate(items: MappedGithubResponseWithScore[], page: number, limit: number): MappedGithubResponseWithScore[] {
+  private paginate(
+    items: MappedGithubResponseWithScore[],
+    page: number,
+    limit: number,
+  ): MappedGithubResponseWithScore[] {
     const start = (page - 1) * limit;
     const end = start + limit;
 
