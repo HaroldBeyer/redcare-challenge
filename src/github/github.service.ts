@@ -3,20 +3,16 @@ import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
 import {
   GithubRepository,
-  GithubSearchResponse,
-  MappedGithubResponse,
+  GithubSearchInput,
+  GithubSearchOutput,
+  MappedGithubOutput,
 } from './github.types';
 
 @Injectable()
 export class GithubService {
   constructor(private readonly httpService: HttpService) {}
 
-  async searchRepositories(params: {
-    language: string;
-    createdAfter: string;
-    page: number;
-    limit: number;
-  }) {
+  async searchRepositories(params: GithubSearchInput) {
     const { language, createdAfter, page, limit } = params;
 
     const query = `language:${language} created:>${createdAfter}`;
@@ -25,7 +21,7 @@ export class GithubService {
 
     try {
       const response = await firstValueFrom(
-        this.httpService.get<GithubSearchResponse>(url, {
+        this.httpService.get<GithubSearchOutput>(url, {
           params: {
             q: query,
             sort: 'stars',
@@ -55,7 +51,7 @@ export class GithubService {
     }
   }
 
-  private mapResponse(items: GithubRepository[]): MappedGithubResponse[] {
+  private mapResponse(items: GithubRepository[]): MappedGithubOutput[] {
     return items.map((item) => ({
       name: item.name,
       fullName: item.full_name,

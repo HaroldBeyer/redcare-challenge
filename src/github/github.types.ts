@@ -6,12 +6,19 @@ export interface GithubRepository {
   updated_at: string;
 }
 
-export interface GithubSearchResponse {
+export interface GithubSearchOutput {
   total_count: number;
   items: GithubRepository[];
 }
 
-export interface MappedGithubResponse {
+export interface GithubSearchInput {
+  language: string;
+  createdAfter: string;
+  page: number;
+  limit: number;
+}
+
+export interface MappedGithubOutput {
   name: string;
   fullName: string;
   stars: number;
